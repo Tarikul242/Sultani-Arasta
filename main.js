@@ -72,7 +72,19 @@ const BD = {
 
 // ── STATE ──
 let profile     = JSON.parse(localStorage.getItem('sa_profile')) || { name:'', bio:'', image:'', followers:0 };
-let books       = JSON.parse(localStorage.getItem('sa_books'))   || [];
+let books = JSON.parse(localStorage.getItem('sa_books'));
+if (!books || books.length === 0) { books = [
+  {id:1, title:"প্যারাডক্সিক্যাল সাজিদ", author:"আরিফ আজাদ", publisher:"গার্ডিয়ান পাবলিকেশন্স", originalPrice:300, price:250, discount:17, rating:5, ratingCount:450, cover:"https://placehold.co/165x237/1a6b9a/ffffff?text=Book+1", inStock:true},
+  {id:2, title:"বেলা ফুরাবার আগে", author:"আরিফ আজাদ", publisher:"সমকালীন প্রকাশন", originalPrice:250, price:200, discount:20, rating:5, ratingCount:320, cover:"https://placehold.co/165x237/1a6b9a/ffffff?text=Book+2", inStock:true},
+  {id:3, title:"প্রত্যাবর্তন", author:"ডা. শামসুল আরেফীন", publisher:"মাকতাবাতুল আযহার", originalPrice:280, price:220, discount:21, rating:4, ratingCount:180, cover:"https://placehold.co/165x237/1a6b9a/ffffff?text=Book+3", inStock:true},
+  {id:4, title:"ডাবল স্ট্যান্ডার্ড", author:"ডা. শামসুল আরেফীন", publisher:"মাকতাবাতুল আযহার", originalPrice:220, price:180, discount:18, rating:4, ratingCount:150, cover:"https://placehold.co/165x237/1a6b9a/ffffff?text=Book+4", inStock:true},
+  {id:5, title:"সীরাত ইবনে হিশাম", author:"ইবনে হিশাম", publisher:"ইসলামিক ফাউন্ডেশন", originalPrice:600, price:500, discount:16, rating:5, ratingCount:890, cover:"https://placehold.co/165x237/1a6b9a/ffffff?text=Book+5", inStock:true},
+  {id:6, title:"কোরআন থেকে নেওয়া জীবনের পাঠ", author:"নোমান আলী খান", publisher:"গার্ডিয়ান পাবলিকেশন্স", originalPrice:350, price:280, discount:20, rating:5, ratingCount:210, cover:"https://placehold.co/165x237/1a6b9a/ffffff?text=Book+6", inStock:true},
+  {id:7, title:"তুমি ফিরবে বলে", author:"জাকারিয়া মাসুদ", publisher:"সমকালীন প্রকাশন", originalPrice:200, price:160, discount:20, rating:4, ratingCount:95, cover:"https://placehold.co/165x237/1a6b9a/ffffff?text=Book+7", inStock:true},
+  {id:8, title:"আরজ আলী সমীপে", author:"আরিফ আজাদ", publisher:"সমকালীন প্রকাশন", originalPrice:260, price:210, discount:19, rating:4, ratingCount:275, cover:"https://placehold.co/165x237/1a6b9a/ffffff?text=Book+8", inStock:true},
+  {id:9, title:"গল্পগুলো অন্যরকম", author:"মাজেদ ইবনে খলিল", publisher:"সমকালীন প্রকাশন", originalPrice:180, price:150, discount:16, rating:5, ratingCount:115, cover:"https://placehold.co/165x237/1a6b9a/ffffff?text=Book+9", inStock:true},
+  {id:10, title:"মক্কা-মদিনার পথে", author:"ড. খোন্দকার আব্দুল্লাহ জাহাঙ্গীর", publisher:"আস-সুন্নাহ পাবলিকেশন্স", originalPrice:400, price:320, discount:20, rating:5, ratingCount:340, cover:"https://placehold.co/165x237/1a6b9a/ffffff?text=Book+10", inStock:true}
+]; localStorage.setItem('sa_books', JSON.stringify(books)); }
 let orders      = JSON.parse(localStorage.getItem('sa_orders'))  || [];
 let cart        = JSON.parse(localStorage.getItem('sa_cart'))    || [];
 let currentBook = null;
@@ -294,3 +306,4 @@ function showSuccess(name, dist, thana, price) {
   document.getElementById('successModal').classList.add('on');
 }
 function closeSuccess() { document.getElementById('successModal').classList.remove('on'); }
+
