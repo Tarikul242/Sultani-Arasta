@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sultani Arasta.com</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  📚 বই পড়ুন, আলোকিত হন — ক্যাশ অন ডেলিভারিতে ঘরে পৌঁছে দেওয়া হবে
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a class="logo" href="index.html">
+      Sultani <em>Arasta</em>.com
+      <small>বই-এর জগতে স্বাগতম</small>
+    </a>
+    <div class="search-wrap">
+      <input id="searchInput" type="text" placeholder="বইয়ের নাম, লেখক, প্রকাশনী লিখুন...">
+      <button onclick="searchBooks()"><i class="fas fa-search"></i> খুঁজুন</button>
+    </div>
+    <div class="cart-wrap" onclick="openCart()">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </div>
+  </div>
+</header>
+
+<!-- WRITER PROFILE -->
+<div class="profile-section">
+  <div class="prof-img-col">
+    <img id="profImg" class="prof-img" src="" alt="লেখক">
+    <div class="followers-txt"><span id="profFollowers">0</span> জন ফলোয়ার</div>
+    <button class="follow-btn" id="followBtn" onclick="follow(this)">ফলো করুন</button>
+  </div>
+  <div>
+    <div class="prof-name" id="profName">লেখকের নাম</div>
+    <p class="prof-bio" id="profBio">Admin Panel থেকে লেখকের পরিচয় যোগ করুন।</p>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">বই</a> › <a href="#">লেখক</a> › <span id="bcName">—</span>
+</div>
+
+<!-- BOOKS SECTION -->
+<div class="books-section">
+  <div class="books-heading" id="booksHeading">বইসমূহ</div>
+  <div class="books-count" id="booksCount">(মোট ০টি বই)</div>
+  <div class="books-grid" id="booksGrid"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2024 Sultani Arasta.com &nbsp;|&nbsp; সর্বস্বত্ব সংরক্ষিত</p>
+</footer>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cs-header">
+    <h3><i class="fas fa-shopping-cart"></i> আপনার কার্ট</h3>
+    <button class="cs-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cs-items" id="csItems"></div>
+  <div class="cs-footer" id="csFooter" style="display:none">
+    <div class="cs-total">
+      <span>মোট:</span>
+      <strong id="csTotal">৳০</strong>
+    </div>
+    <button class="checkout-btn" onclick="openCheckout()">
+      <i class="fas fa-bolt"></i> অর্ডার করুন
+    </button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-bg" id="checkoutModal">
+  <div class="modal-box">
+    <h3><i class="fas fa-shopping-bag"></i> অর্ডার ফর্ম</h3>
+    <div class="book-summary" id="bookSummary"></div>
+    <div class="cod-badge">
+      <i class="fas fa-money-bill-wave"></i> ক্যাশ অন ডেলিভারি (COD)
+    </div>
+    <form id="orderForm" onsubmit="placeOrder(event)">
+      <div class="form-grp">
+        <label>ক্রেতার পূর্ণ নাম *</label>
+        <input type="text" id="bName" placeholder="আপনার নাম লিখুন" required>
+      </div>
+      <div class="form-grp">
+        <label>মোবাইল নম্বর *</label>
+        <input type="tel" id="bPhone" placeholder="01XXXXXXXXX" required
+               pattern="01[3-9][0-9]{8}" title="সঠিক বাংলাদেশি নম্বর দিন">
+      </div>
+      <div class="form-grp">
+        <label>বিস্তারিত ঠিকানা *</label>
+        <textarea id="bAddress" rows="2" placeholder="বাড়ি নং / রাস্তা / মহল্লা / এলাকা..." required></textarea>
+      </div>
+      <div class="form-row2">
+        <div class="form-grp">
+          <label>জেলা *</label>
+          <select id="distSel" onchange="fillThanas()" required>
+            <option value="">-- জেলা বেছে নিন --</option>
+          </select>
+        </div>
+        <div class="form-grp">
+          <label>থানা / উপজেলা *</label>
+          <select id="thanaSel" required>
+            <option value="">আগে জেলা বেছে নিন</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="confirm-btn">
+        <i class="fas fa-check-circle"></i> অর্ডার নিশ্চিত করুন
+      </button>
+      <button type="button" class="cancel-btn" onclick="closeCheckout()">বাতিল করুন</button>
+    </form>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-bg" id="successModal">
+  <div class="modal-box">
+    <div class="success-box">
+      <div class="success-icon">✓</div>
+      <h2>অর্ডার সফল হয়েছে! 🎉</h2>
+      <p id="successMsg"></p>
+      <button class="ok-btn" onclick="closeSuccess()">ঠিক আছে</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="main.js"></script>
+</body>
+</html>
